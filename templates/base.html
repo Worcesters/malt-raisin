@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Malt & Raisin{% endblock %} — Cave à spiritueux</title>
+  <meta name="description" content="{% block meta_description %}Malt & Raisin — Votre cave de vins, bières, whiskys et spiritueux d'exception.{% endblock %}">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js"></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="h-full bg-zinc-950 text-zinc-100 font-sans antialiased" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+  {% include "partials/age_gate.html" %}
+  {% include "partials/navbar.html" %}
+
+  {% if messages %}
+  <div class="fixed top-20 right-4 z-50 space-y-2" x-data>
+    {% for message in messages %}
+    <div
+      x-data="{ show: true }"
+      x-show="show"
+      x-init="setTimeout(() => show = false, 4000)"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-x-0"
+      x-transition:leave-end="opacity-0 translate-x-4"
+      class="px-4 py-3 border text-sm
+        {% if message.tags == 'success' %}border-emerald-800 bg-emerald-950/80 text-emerald-200
+        {% elif message.tags == 'error' %}border-red-800 bg-red-950/80 text-red-200
+        {% else %}border-zinc-700 bg-zinc-900/80 text-zinc-200{% endif %}"
+    >
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main class="min-h-[calc(100vh-160px)]">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/footer.html" %}
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

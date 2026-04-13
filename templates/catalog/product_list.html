@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+
+  <div class="mb-8">
+    <h1 class="font-serif text-3xl font-semibold">Boutique</h1>
+    <p class="mt-2 text-sm text-zinc-500">Notre sélection de vins, bières et spiritueux.</p>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-8">
+
+    <aside class="w-full lg:w-56 shrink-0 space-y-6">
+      <div>
+        <label for="search" class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Recherche</label>
+        <input
+          type="text"
+          id="search"
+          name="q"
+          value="{{ current_search }}"
+          placeholder="Rechercher..."
+          class="w-full bg-zinc-900 border border-zinc-800 px-3 py-2 text-sm text-zinc-200 placeholder-zinc-600 focus:border-brand-600 focus:outline-none"
+          hx-get="{% url 'catalog:product_list' %}"
+          hx-trigger="keyup changed delay:300ms"
+          hx-target="#product-grid"
+          hx-include="[name='category'],[name='type'],[name='sort']"
+        >
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Catégories</h3>
+        <div class="space-y-1">
+          <label class="flex items-center gap-2 text-sm text-zinc-300 hover:text-brand-400 cursor-pointer">
+            <input type="radio" name="category" value="" {% if not current_category %}checked{% endif %}
+              class="accent-amber-600"
+              hx-get="{% url 'catalog:product_list' %}"
+              hx-trigger="change"
+              hx-target="#product-grid"
+              hx-include="[name='q'],[name='type'],[name='sort']"
+            > Toutes
+          </label>
+          {% for cat in categories %}
+          <label class="flex items-center gap-2 text-sm text-zinc-300 hover:text-brand-400 cursor-pointer">
+            <input type="radio" name="category" value="{{ cat.slug }}" {% if current_category == cat.slug %}checked{% endif %}
+              class="accent-amber-600"
+              hx-get="{% url 'catalog:product_list' %}"
+              hx-trigger="change"
+              hx-target="#product-grid"
+              hx-include="[name='q'],[name='type'],[name='sort']"
+            > {{ cat.name }}
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Type</h3>
+        <select
+          name="type"
+          class="w-full bg-zinc-900 border border-zinc-800 px-3 py-2 text-sm text-zinc-200 focus:border-brand-600 focus:outline-none"
+          hx-get="{% url 'catalog:product_list' %}"
+          hx-trigger="change"
+          hx-target="#product-grid"
+          hx-include="[name='q'],[name='category'],[name='sort']"
+        >
+          <option value="">Tous les types</option>
+          {% for value, label in alcohol_types %}
+          <option value="{{ value }}" {% if current_type == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Trier par</h3>
+        <select
+          name="sort"
+          class="w-full bg-zinc-900 border border-zinc-800 px-3 py-2 text-sm text-zinc-200 focus:border-brand-600 focus:outline-none"
+          hx-get="{% url 'catalog:product_list' %}"
+          hx-trigger="change"
+          hx-target="#product-grid"
+          hx-include="[name='q'],[name='category'],[name='type']"
+        >
+          <option value="">Nouveautés</option>
+          <option value="price_asc" {% if current_sort == "price_asc" %}selected{% endif %}>Prix croissant</option>
+          <option value="price_desc" {% if current_sort == "price_desc" %}selected{% endif %}>Prix décroissant</option>
+          <option value="name" {% if current_sort == "name" %}selected{% endif %}>Nom A-Z</option>
+        </select>
+      </div>
+    </aside>
+
+    <div id="product-grid" class="flex-1">
+      {% include "catalog/partials/product_grid.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

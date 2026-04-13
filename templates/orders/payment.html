@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-lg px-4 py-16 text-center">
+  <h1 class="font-serif text-3xl font-semibold mb-4">Paiement</h1>
+  <p class="text-sm text-zinc-400 mb-8">Commande #{{ order.pk }} — {{ order.total }} €</p>
+
+  <div id="paypal-button-container" class="mb-8"></div>
+
+  <div id="payment-status" class="hidden text-sm text-emerald-400 mb-4">
+    Paiement confirmé ! Redirection en cours...
+  </div>
+</div>
+
+{% block extra_scripts %}
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=EUR"></script>
+<script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: { value: '{{ order.total }}' }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        fetch('{% url "orders:paypal_capture" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({ orderID: data.orderID })
+        })
+        .then(r => r.json())
+        .then(result => {
+          if (result.status === 'ok') {
+            document.getElementById('payment-status').classList.remove('hidden');
+            setTimeout(() => window.location.href = result.redirect, 1500);
+          }
+        });
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+{% endblock %}
+{% endblock %}

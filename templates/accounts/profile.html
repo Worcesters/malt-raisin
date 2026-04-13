@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-2xl px-4 py-8">
+  <h1 class="font-serif text-3xl font-semibold mb-8">Mon profil</h1>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {% for field in form %}
+      <div class="{% if field.name == 'address' %}sm:col-span-2{% endif %}">
+        <label for="{{ field.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1">{{ field.label }}</label>
+        {% if field.field.widget.input_type == "checkbox" %}
+        <label class="flex items-center gap-2 text-sm text-zinc-300 cursor-pointer mt-2">
+          <input type="checkbox" name="{{ field.name }}" {% if field.value %}checked{% endif %} class="accent-amber-600">
+          {{ field.label }}
+        </label>
+        {% else %}
+        <{% if field.name == "address" %}textarea name="{{ field.name }}" id="{{ field.id_for_label }}" rows="3" class="w-full bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-zinc-200 focus:border-brand-600 focus:outline-none">{{ field.value|default:"" }}</textarea{% else %}input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default:'' }}" class="w-full bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-zinc-200 focus:border-brand-600 focus:outline-none"{% endif %}>
+        {% endif %}
+        {% if field.errors %}<p class="text-xs text-red-400 mt-1">{{ field.errors.0 }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="bg-brand-600 px-6 py-3 text-sm font-medium text-zinc-950 hover:bg-brand-500 transition-colors">
+      Sauvegarder
+    </button>
+  </form>
+</div>
+{% endblock %}

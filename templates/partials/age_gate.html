@@ -1,0 +1,38 @@
+<div
+  x-data="{ verified: localStorage.getItem('age_verified') === 'true' }"
+  x-show="!verified"
+  x-cloak
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm"
+>
+  <div class="mx-4 max-w-md w-full border border-zinc-800 bg-zinc-950 p-8 text-center">
+    <div class="mb-6">
+      <span class="font-serif text-2xl font-semibold text-brand-400">Malt</span>
+      <span class="text-zinc-500 text-2xl"> & </span>
+      <span class="font-serif text-2xl font-semibold text-brand-400">Raisin</span>
+    </div>
+
+    <h2 class="text-lg font-semibold text-zinc-200 mb-2">Vérification de l'âge</h2>
+    <p class="text-sm text-zinc-400 mb-6">
+      Ce site vend des boissons alcoolisées. Vous devez avoir au moins 18 ans pour y accéder.
+    </p>
+
+    <p class="text-sm text-zinc-300 mb-6">Avez-vous 18 ans ou plus ?</p>
+
+    <div class="flex gap-4 justify-center">
+      <button
+        @click="localStorage.setItem('age_verified', 'true'); verified = true"
+        class="bg-brand-600 px-8 py-2.5 text-sm font-medium text-zinc-950 hover:bg-brand-500 transition-colors"
+      >
+        Oui, j'ai 18 ans
+      </button>
+      <button
+        @click="window.location.href = 'https://www.google.fr'"
+        class="border border-zinc-700 px-8 py-2.5 text-sm text-zinc-400 hover:border-zinc-600 transition-colors"
+      >
+        Non
+      </button>
+    </div>
+
+    <p class="mt-6 text-xs text-zinc-600">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+  </div>
+</div>

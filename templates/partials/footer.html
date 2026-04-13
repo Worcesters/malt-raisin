@@ -1,0 +1,47 @@
+<footer class="border-t border-zinc-800 bg-zinc-950">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="font-serif text-lg font-semibold text-brand-400">Malt</span>
+          <span class="text-zinc-500">&</span>
+          <span class="font-serif text-lg font-semibold text-brand-400">Raisin</span>
+        </div>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          Votre cave de vins, bières artisanales et spiritueux d'exception. Sélection rigoureuse, conseils passionnés.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4">Boutique</h3>
+        <ul class="space-y-2">
+          <li><a href="{% url 'catalog:product_list' %}?type=vin" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Vins</a></li>
+          <li><a href="{% url 'catalog:product_list' %}?type=biere" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Bières</a></li>
+          <li><a href="{% url 'catalog:product_list' %}?type=whisky" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Whiskys</a></li>
+          <li><a href="{% url 'catalog:product_list' %}?type=rhum" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Rhums</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4">Informations</h3>
+        <ul class="space-y-2">
+          <li><a href="{% url 'events:event_list' %}" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Événements</a></li>
+          <li><a href="{% url 'contact:contact' %}" class="text-sm text-zinc-500 hover:text-brand-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4">Légal</h3>
+        <ul class="space-y-2">
+          <li><span class="text-sm text-zinc-500">L'abus d'alcool est dangereux pour la santé.</span></li>
+          <li><span class="text-sm text-zinc-500">À consommer avec modération.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-zinc-800 pt-8 text-center">
+      <p class="text-xs text-zinc-600">&copy; {{ "now"|date:"Y" }} Malt & Raisin. Tous droits réservés. Vente interdite aux mineurs.</p>
+    </div>
+  </div>
+</footer>
