@@ -2,9 +2,9 @@
   x-data="{ verified: localStorage.getItem('age_verified') === 'true' }"
   x-show="!verified"
   x-cloak
-  class="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm"
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm"
 >
-  <div class="mx-4 max-w-md w-full border border-zinc-800 bg-zinc-950 p-8 text-center">
+  <div class="mx-4 max-w-md w-full border border-zinc-800 bg-black p-8 text-center">
     <div class="mb-6">
       <span class="font-serif text-2xl font-semibold text-brand-400">Malt</span>
       <span class="text-zinc-500 text-2xl"> & </span>
@@ -21,7 +21,7 @@
     <div class="flex gap-4 justify-center">
       <button
         @click="localStorage.setItem('age_verified', 'true'); verified = true"
-        class="bg-brand-600 px-8 py-2.5 text-sm font-medium text-zinc-950 hover:bg-brand-500 transition-colors"
+        class="bg-brand-600 px-8 py-2.5 text-sm font-medium text-white hover:bg-brand-500 transition-colors"
       >
         Oui, j'ai 18 ans
       </button>

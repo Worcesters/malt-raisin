@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="grad-biere" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#18181b"/>
+  <rect x="0" y="0" width="400" height="400" fill="url(#grad-biere)" opacity="0.12"/>
+  <g transform="translate(200,200)" fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.5">
+    <path d="M-30,-90 L-35,70 Q-35,90 -15,90 L15,90 Q35,90 35,70 L30,-90 Z"/>
+    <path d="M35,-30 Q60,-30 60,0 L60,30 Q60,50 35,50"/>
+    <ellipse cx="0" cy="-90" rx="32" ry="6"/>
+    <circle cx="-10" cy="-80" r="5"/>
+    <circle cx="8" cy="-75" r="7"/>
+    <circle cx="-5" cy="-70" r="4"/>
+    <circle cx="15" cy="-82" r="4"/>
+  </g>
+  <text x="200" y="340" text-anchor="middle" fill="#71717a" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2">BIERE</text>
+</svg>

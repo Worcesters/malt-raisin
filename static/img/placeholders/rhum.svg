@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="grad-rhum" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9a3412"/>
+      <stop offset="100%" stop-color="#431407"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#18181b"/>
+  <rect x="0" y="0" width="400" height="400" fill="url(#grad-rhum)" opacity="0.12"/>
+  <g transform="translate(200,200)" fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.5">
+    <rect x="-6" y="-120" width="12" height="25" rx="3"/>
+    <path d="M-6,-95 L-6,-85 Q-35,-65 -35,-20 L-35,65 Q-35,90 -10,90 L10,90 Q35,90 35,65 L35,-20 Q35,-65 6,-85 L6,-95"/>
+    <ellipse cx="0" cy="20" rx="20" ry="22"/>
+    <line x1="-15" y1="-5" x2="15" y2="-5"/>
+    <line x1="-15" y1="45" x2="15" y2="45"/>
+  </g>
+  <text x="200" y="340" text-anchor="middle" fill="#71717a" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2">RHUM</text>
+</svg>

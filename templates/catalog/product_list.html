@@ -34,7 +34,7 @@
         <div class="space-y-1">
           <label class="flex items-center gap-2 text-sm text-zinc-300 hover:text-brand-400 cursor-pointer">
             <input type="radio" name="category" value="" {% if not current_category %}checked{% endif %}
-              class="accent-amber-600"
+              class="accent-brand-600"
               hx-get="{% url 'catalog:product_list' %}"
               hx-trigger="change"
               hx-target="#product-grid"
@@ -44,7 +44,7 @@
           {% for cat in categories %}
           <label class="flex items-center gap-2 text-sm text-zinc-300 hover:text-brand-400 cursor-pointer">
             <input type="radio" name="category" value="{{ cat.slug }}" {% if current_category == cat.slug %}checked{% endif %}
-              class="accent-amber-600"
+              class="accent-brand-600"
               hx-get="{% url 'catalog:product_list' %}"
               hx-trigger="change"
               hx-target="#product-grid"

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="grad-autre" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#18181b"/>
+  <rect x="0" y="0" width="400" height="400" fill="url(#grad-autre)" opacity="0.1"/>
+  <g transform="translate(200,200)" fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.5">
+    <rect x="-7" y="-120" width="14" height="30" rx="3"/>
+    <path d="M-7,-90 L-7,-75 L-25,-55 L-25,75 Q-25,90 -12,90 L12,90 Q25,90 25,75 L25,-55 L7,-75 L7,-90"/>
+    <rect x="-18" y="0" width="36" height="28" rx="3"/>
+  </g>
+  <text x="200" y="340" text-anchor="middle" fill="#71717a" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2">SPIRITUEUX</text>
+</svg>

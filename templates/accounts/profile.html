@@ -15,7 +15,7 @@
         <label for="{{ field.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1">{{ field.label }}</label>
         {% if field.field.widget.input_type == "checkbox" %}
         <label class="flex items-center gap-2 text-sm text-zinc-300 cursor-pointer mt-2">
-          <input type="checkbox" name="{{ field.name }}" {% if field.value %}checked{% endif %} class="accent-amber-600">
+          <input type="checkbox" name="{{ field.name }}" {% if field.value %}checked{% endif %} class="accent-brand-600">
           {{ field.label }}
         </label>
         {% else %}
@@ -26,7 +26,7 @@
       {% endfor %}
     </div>
 
-    <button type="submit" class="bg-brand-600 px-6 py-3 text-sm font-medium text-zinc-950 hover:bg-brand-500 transition-colors">
+    <button type="submit" class="bg-brand-600 px-6 py-3 text-sm font-medium text-white hover:bg-brand-500 transition-colors">
       Sauvegarder
     </button>
   </form>

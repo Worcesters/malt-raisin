@@ -1,0 +1,1 @@
+<span id="cart-nav-badge-desktop" {% if htmx_oob %}hx-swap-oob="true"{% endif %} class="absolute -top-1.5 -right-1.5 flex h-4 min-w-4 items-center justify-center bg-brand-600 px-0.5 text-[10px] font-bold text-white {% if not cart_count %}hidden{% endif %}">{% if cart_count %}{{ cart_count }}{% endif %}</span>

@@ -1,10 +1,10 @@
-<nav x-data="{ open: false }" class="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-sm">
+<nav x-data="{ open: false }" class="sticky top-0 z-40 border-b border-zinc-800 bg-black/95 backdrop-blur-sm">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
 
       <a href="{% url 'core:home' %}" class="flex items-center gap-2">
-        <span class="font-serif text-xl font-semibold tracking-wide text-brand-400">Malt</span>
-        <span class="text-zinc-500">&</span>
+        <span class="font-serif text-xl font-semibold tracking-wide text-brand-1000">Malt</span>
+        <span class="font-serif text-zinc-200">&</span>
         <span class="font-serif text-xl font-semibold tracking-wide text-brand-400">Raisin</span>
       </a>
 
@@ -19,11 +19,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
           </svg>
-          {% if cart_count %}
-          <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center bg-brand-600 text-[10px] font-bold text-zinc-950">
-            {{ cart_count }}
-          </span>
-          {% endif %}
+          {% include "cart/partials/cart_badge_desktop.html" %}
         </a>
 
         {% if user.is_authenticated %}
@@ -49,7 +45,7 @@
         </div>
         {% else %}
         <a href="{% url 'accounts:login' %}" class="text-sm text-zinc-300 hover:text-brand-400 transition-colors">Connexion</a>
-        <a href="{% url 'accounts:register' %}" class="border border-brand-600 px-4 py-1.5 text-sm text-brand-400 hover:bg-brand-600 hover:text-zinc-950 transition-colors">
+        <a href="{% url 'accounts:register' %}" class="border border-brand-600 px-4 py-1.5 text-sm text-brand-400 hover:bg-brand-600 hover:text-white transition-colors">
           Inscription
         </a>
         {% endif %}
@@ -64,13 +60,13 @@
     </div>
   </div>
 
-  <div x-show="open" x-cloak x-transition class="md:hidden border-t border-zinc-800 bg-zinc-950">
+  <div x-show="open" x-cloak x-transition class="md:hidden border-t border-zinc-800 bg-black">
     <div class="space-y-1 px-4 py-4">
       <a href="{% url 'catalog:product_list' %}" class="block py-2 text-sm text-zinc-300 hover:text-brand-400">Boutique</a>
       <a href="{% url 'events:event_list' %}" class="block py-2 text-sm text-zinc-300 hover:text-brand-400">Événements</a>
       <a href="{% url 'contact:contact' %}" class="block py-2 text-sm text-zinc-300 hover:text-brand-400">Contact</a>
       <a href="{% url 'cart:detail' %}" class="block py-2 text-sm text-zinc-300 hover:text-brand-400">
-        Panier{% if cart_count %} ({{ cart_count }}){% endif %}
+        Panier{% include "cart/partials/cart_mobile_suffix.html" %}
       </a>
       <hr class="border-zinc-800">
       {% if user.is_authenticated %}

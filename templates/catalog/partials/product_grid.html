@@ -1,3 +1,4 @@
+{% load placeholder_tags %}
 {% if products %}
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
   {% for product in products %}
@@ -6,11 +7,8 @@
       {% if product.image %}
       <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300">
       {% else %}
-      <div class="h-full w-full flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
-        </svg>
-      </div>
+      {% product_placeholder product.alcohol_type as ph_url %}
+      <img src="{{ ph_url }}" alt="{{ product.name }}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300">
       {% endif %}
     </div>
     <div class="p-4">
@@ -29,6 +27,42 @@
   </a>
   {% endfor %}
 </div>
+
+{% if is_paginated %}
+<nav class="mt-8 flex items-center justify-center gap-2">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+     hx-get="{% url 'catalog:product_list' %}?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+     hx-target="#product-grid"
+     class="border border-zinc-800 px-3 py-1.5 text-sm text-zinc-400 hover:border-brand-600 hover:text-brand-400 transition-colors">
+    &larr;
+  </a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+    <span class="bg-brand-600 px-3 py-1.5 text-sm font-medium text-white">{{ num }}</span>
+    {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+    <a href="?page={{ num }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+       hx-get="{% url 'catalog:product_list' %}?page={{ num }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+       hx-target="#product-grid"
+       class="border border-zinc-800 px-3 py-1.5 text-sm text-zinc-400 hover:border-brand-600 hover:text-brand-400 transition-colors">
+      {{ num }}
+    </a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+     hx-get="{% url 'catalog:product_list' %}?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+     hx-target="#product-grid"
+     class="border border-zinc-800 px-3 py-1.5 text-sm text-zinc-400 hover:border-brand-600 hover:text-brand-400 transition-colors">
+    &rarr;
+  </a>
+  {% endif %}
+</nav>
+{% endif %}
+
 {% else %}
 <div class="flex flex-col items-center justify-center py-16 text-center">
   <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-zinc-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">

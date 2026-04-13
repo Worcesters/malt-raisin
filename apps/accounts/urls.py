@@ -1,13 +1,19 @@
 from django.urls import path
 
-from apps.accounts import views
+from apps.accounts.views import (
+    LoginView,
+    LogoutView,
+    OrderHistoryView,
+    ProfileView,
+    RegisterView,
+)
 
 app_name = "accounts"
 
 urlpatterns = [
-    path("inscription/", views.register_view, name="register"),
-    path("connexion/", views.login_view, name="login"),
-    path("deconnexion/", views.logout_view, name="logout"),
-    path("profil/", views.profile_view, name="profile"),
-    path("commandes/", views.order_history_view, name="order_history"),
+    path("inscription/", RegisterView.as_view(), name="register"),
+    path("connexion/", LoginView.as_view(), name="login"),
+    path("deconnexion/", LogoutView.as_view(), name="logout"),
+    path("profil/", ProfileView.as_view(), name="profile"),
+    path("commandes/", OrderHistoryView.as_view(), name="order_history"),
 ]

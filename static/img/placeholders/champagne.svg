@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="grad-champ" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#18181b"/>
+  <rect x="0" y="0" width="400" height="400" fill="url(#grad-champ)" opacity="0.1"/>
+  <g transform="translate(200,200)" fill="none" stroke="#a1a1aa" stroke-width="1.5" opacity="0.5">
+    <rect x="-7" y="-125" width="14" height="20" rx="3"/>
+    <circle cx="0" cy="-100" r="10"/>
+    <path d="M-10,-90 L-10,-75 Q-28,-55 -28,0 L-28,75 Q-28,90 -15,90 L15,90 Q28,90 28,75 L28,0 Q28,-55 10,-75 L10,-90"/>
+    <rect x="-20" y="15" width="40" height="30" rx="3"/>
+    <circle cx="-12" cy="-50" r="2" fill="#a1a1aa" opacity="0.3"/>
+    <circle cx="5" cy="-60" r="1.5" fill="#a1a1aa" opacity="0.3"/>
+    <circle cx="-3" cy="-45" r="2.5" fill="#a1a1aa" opacity="0.3"/>
+    <circle cx="10" cy="-55" r="1.5" fill="#a1a1aa" opacity="0.3"/>
+  </g>
+  <text x="200" y="340" text-anchor="middle" fill="#71717a" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2">CHAMPAGNE</text>
+</svg>
