@@ -50,7 +50,7 @@
   {% block extra_head %}{% endblock %}
 </head>
 
-<body class="h-full bg-black text-white font-sans antialiased" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="min-h-screen flex flex-col bg-black text-white font-sans antialiased" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
   {% include "partials/age_gate.html" %}
   {% include "partials/navbar.html" %}
@@ -76,7 +76,7 @@
   </div>
   {% endif %}
 
-  <main class="min-h-[calc(100vh-160px)]">
+  <main class="flex-1 mb-8">
     {% block content %}{% endblock %}
   </main>
 
