@@ -3,12 +3,148 @@
 
 {% block title %}Événements{% endblock %}
 
+{% block extra_head %}
+<style>
+  .parallax-hero {
+    position: relative;
+    height: 70vh;
+    min-height: 420px;
+    max-height: 700px;
+    overflow: hidden;
+    background: linear-gradient(175deg, #0a0a0a 0%, #1a1005 30%, #2c1a08 55%, #1a1005 80%, #0a0a0a 100%);
+  }
+
+  .parallax-layer {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  /* Warm amber glow — deepest layer */
+  .layer-glow {
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 70%, rgba(214, 139, 88, .12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 75% 60%, rgba(154, 52, 56, .10) 0%, transparent 70%);
+  }
+
+  /* Foam band at the bottom */
+  .layer-foam {
+    bottom: -10%;
+    top: auto;
+    height: 35%;
+    background: linear-gradient(to top,
+      rgba(255, 248, 235, .07) 0%,
+      rgba(255, 248, 235, .04) 30%,
+      rgba(255, 248, 235, .01) 60%,
+      transparent 100%
+    );
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+      rgba(255, 248, 235, .35) 0%,
+      rgba(214, 139, 88, .12) 40%,
+      rgba(214, 139, 88, .04) 70%,
+      transparent 100%
+    );
+    box-shadow: inset 0 -2px 4px rgba(255, 248, 235, .08);
+    animation: bubble-rise linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes bubble-rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    10%  { opacity: 1; }
+    85%  { opacity: .6; }
+    100% { transform: translateY(-70vh) scale(.6); opacity: 0; }
+  }
+
+  /* Sparkle dots */
+  .sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255, 248, 235, .6);
+    animation: sparkle-pulse ease-in-out infinite alternate;
+  }
+
+  @keyframes sparkle-pulse {
+    0%   { opacity: 0; transform: scale(.5); }
+    100% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Grain overlay for texture */
+  .layer-grain {
+    opacity: .04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .hero-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(214, 139, 88, .3), transparent);
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-  <div class="mb-8">
-    <h1 class="font-serif text-3xl font-semibold">Événements</h1>
-    <p class="mt-2 text-sm text-zinc-500">Dégustations, soirées et rencontres autour du vin et des spiritueux.</p>
+<!-- ═══ PARALLAX HERO ═══ -->
+<section class="parallax-hero" id="parallaxHero">
+  <!-- Layer 1: Ambient glow (moves slowest) -->
+  <div class="parallax-layer layer-glow" data-parallax-speed="0.15"></div>
+
+  <!-- Layer 2: Bubbles container -->
+  <div class="parallax-layer" id="bubblesLayer" data-parallax-speed="0.3"></div>
+
+  <!-- Layer 3: Sparkles -->
+  <div class="parallax-layer" id="sparklesLayer" data-parallax-speed="0.2"></div>
+
+  <!-- Layer 4: Foam band (moves with medium speed) -->
+  <div class="parallax-layer layer-foam" data-parallax-speed="0.4"></div>
+
+  <!-- Layer 5: Grain texture (static) -->
+  <div class="parallax-layer layer-grain" data-parallax-speed="0"></div>
+
+  <!-- Content (foreground — moves fastest) -->
+  <div class="hero-content" data-parallax-speed="0.5">
+    <span class="inline-block mb-4 text-xs tracking-[.25em] uppercase text-brand-1000/80 font-medium">Dégustations &amp; Soirées</span>
+    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-white/95 leading-tight max-w-3xl">
+      Nos Événements
+    </h1>
+    <p class="mt-4 text-sm sm:text-base text-zinc-400 max-w-xl leading-relaxed">
+      Plongez dans l'effervescence de nos soirées dégustation, rencontres de producteurs et ateliers autour des plus belles cuvées.
+    </p>
+    <div class="mt-8 flex items-center gap-3">
+      <span class="block w-8 h-px bg-brand-1000/40"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-1000/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+      </svg>
+      <span class="block w-8 h-px bg-brand-1000/40"></span>
+    </div>
   </div>
+</section>
+
+<div class="hero-divider"></div>
+
+<!-- ═══ EVENTS GRID ═══ -->
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
 
   {% if events %}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -46,4 +182,74 @@
   </div>
   {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+  const hero = document.getElementById('parallaxHero');
+  if (!hero) return;
+
+  const layers = hero.querySelectorAll('[data-parallax-speed]');
+  const bubblesLayer = document.getElementById('bubblesLayer');
+  const sparklesLayer = document.getElementById('sparklesLayer');
+
+  /* ── Parallax on scroll ── */
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      const scrollY = window.scrollY;
+      const heroH = hero.offsetHeight;
+      if (scrollY < heroH * 1.5) {
+        layers.forEach(function (layer) {
+          const speed = parseFloat(layer.dataset.parallaxSpeed) || 0;
+          layer.style.transform = 'translate3d(0,' + (scrollY * speed) + 'px,0)';
+        });
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── Spawn bubbles ── */
+  var BUBBLE_COUNT = 22;
+  function spawnBubble() {
+    var b = document.createElement('div');
+    b.className = 'bubble';
+    var size = 4 + Math.random() * 18;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = (5 + Math.random() * 90) + '%';
+    b.style.bottom = '-5%';
+    b.style.animationDuration = (5 + Math.random() * 8) + 's';
+    b.style.animationDelay = (Math.random() * 6) + 's';
+    bubblesLayer.appendChild(b);
+  }
+  for (var i = 0; i < BUBBLE_COUNT; i++) spawnBubble();
+
+  /* Recycle bubbles */
+  setInterval(function () {
+    if (bubblesLayer.children.length < BUBBLE_COUNT + 5) {
+      spawnBubble();
+    }
+    if (bubblesLayer.children.length > BUBBLE_COUNT + 10) {
+      bubblesLayer.removeChild(bubblesLayer.firstChild);
+    }
+  }, 2000);
+
+  /* ── Spawn sparkles ── */
+  var SPARKLE_COUNT = 35;
+  for (var j = 0; j < SPARKLE_COUNT; j++) {
+    var s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = (Math.random() * 100) + '%';
+    s.style.top = (Math.random() * 100) + '%';
+    s.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    sparklesLayer.appendChild(s);
+  }
+})();
+</script>
 {% endblock %}
